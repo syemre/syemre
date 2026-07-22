@@ -3,6 +3,24 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script>
+      // Strip /index.html from URL bar silently
+      (function() {
+        var path = window.location.pathname;
+        if (path.endsWith('/index.html')) {
+          history.replaceState(null, '', path.replace('/index.html', '/') + window.location.search + window.location.hash);
+        }
+        // Decode routed paths from 404.html
+        var r = window.location.search.slice(1);
+        if (r.startsWith('/')) {
+          history.replaceState(null, null,
+            window.location.pathname.slice(0, -1) +
+            r.replace(/~and~/g, '&') +
+            window.location.hash
+          );
+        }
+      })();
+    <\/script>
     <title>Banana Loader Anti-Cheat &amp; Roblox Systems — Emre</title>
     <meta name="description" content="Official Portfolio of Emre — Author of Banana Loader Anti-Cheat, Roblox BanAsync Moderation System, UI Garbage Collector, Team Vs Team Gangwar, and Tactical Systems.">
     <link rel="icon" type="image/png" href="../favicon.png">
